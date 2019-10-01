@@ -1,11 +1,11 @@
-1. Intro and what the course is about
-2. Myself, say about the format of lectures (Theory + Practice)
+1-2. Intro and what the course is about
+3. Myself, say about the format of lectures (Theory + Practice)
    Tools and instrument 
  - Communication via Skype Group
  - Git Hub, Fork, Merge
  - AWS Console, mail, Free Tier
  - Home Tasks (2,3 practice + Theory quizz)
-3. Cloud Computing Provider
+4. Cloud Computing Provider
  - Provider, On Premise, Migration, New Projects
  Cloud Provider definition (AWS, Azure, Google), NIST institute:
  Cloud Computing: Resources with 5 chraracteristics
@@ -30,11 +30,23 @@
    - Sell services to others
    - Build over services
   
-8. Service Model, Pyramid
+8-12. Service Model, Pyramid
+8. Users(left) and Application vendors and providers(right). (horizontally)
+ - targets which users
+ - IAAS - more resources and API, complex management, devops
+ - PAAS - more restrictions, artifactory deploy
+ - SAAS - ready solution
+9. Hierarchy: One over another
+ - Configurability
+ - Extension
+10. Boundary, Key differences (Who manages from user's standpoint)
+11. Pizza, Customer is Pizza store
+12. AWS responsibility, focus
 
+9. Verically
 
 13. Tell 
- - EC2
+ - EC2 - AMI (Amazon Machine Image)
  - AutoScaling Group
  - Cloud Formation infrastructure
  - VPC deploy to, copy premise infrastructure
