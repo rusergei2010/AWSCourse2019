@@ -1,0 +1,73 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Dev Environment",
+    "Metadata": {},
+    "Parameters": {},
+    "Resources": {
+        "VPC": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "VPCCIDR": "10.11.0.0/16",
+                    "NATSubnetCIDR": "10.11.10.0/24"
+                },
+                "TemplateURL": "https://s3.amazonaws.com/aws-crash-course-cloudformation/modules/vpc.cf.json"
+            }
+        },
+
+        "PublicSubnet": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "VPC": { "Fn::GetAtt": [ "VPC", "Outputs.VPCID" ] },
+                    "PublicRouteTable": { "Fn::GetAtt": [ "VPC", "Outputs.PublicRouteTable" ] },
+                    "CIDR": "10.11.110.0/24"
+                },
+                "TemplateURL": "https://s3.amazonaws.com/aws-crash-course-cloudformation/modules/subnet-public.cf.json"
+            }
+        },
+
+        "PrivateSubnet": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "VPC": { "Fn::GetAtt": [ "VPC", "Outputs.VPCID" ] },
+                    "PrivateRouteTable": { "Fn::GetAtt": [ "VPC", "Outputs.PrivateRouteTable" ] },
+                    "CIDR": "10.11.111.0/24"
+                },
+                "TemplateURL": "https://s3.amazonaws.com/aws-crash-course-cloudformation/modules/subnet-private.cf.json"
+            }
+        },
+
+        "Ec2Instance1": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "VPC": { "Fn::GetAtt": [ "VPC", "Outputs.VPCID" ] },
+                    "Subnet": { "Fn::GetAtt": [ "PublicSubnet", "Outputs.PublicSubnet" ] },
+                    "KeyName": "aws-crash-course-us"
+                },
+                "TemplateURL": "https://s3.amazonaws.com/aws-crash-course-cloudformation/modules/ec2.cf.json"
+            }
+        },
+        "PublicIP": {
+          "Type": "AWS::EC2::EIP",
+          "Properties": {
+            "Domain": "vpc",
+            "InstanceId": { "Fn::GetAtt": [ "Ec2Instance1", "Outputs.InstanceId" ] },
+          }
+        },
+
+        "Ec2Instance2": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "VPC": { "Fn::GetAtt": [ "VPC", "Outputs.VPCID" ] },
+                    "Subnet": { "Fn::GetAtt": [ "PrivateSubnet", "Outputs.PrivateSubnet" ] },
+                    "KeyName": "aws-crash-course-us"
+                },
+                "TemplateURL": "https://s3.amazonaws.com/aws-crash-course-cloudformation/modules/ec2.cf.json"
+            }
+        }
+    }
+}

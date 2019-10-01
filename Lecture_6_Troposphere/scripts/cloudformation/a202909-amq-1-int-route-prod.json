@@ -1,0 +1,62 @@
+{
+    "Description": "AWS Route53 CloudFormation Template for amq-1.prod.5419.aws-int.thomsonreuters.com",
+    "Parameters": {
+        "HostedZone": {
+            "Default": "5419.aws-int.thomsonreuters.com",
+            "Description": "The DNS name of an existing Amazon Route 53 hosted zone",
+            "Type": "String"
+        },
+        "HostedZoneId": {
+            "Default": "Z14NKDU5PLFNOZ",
+            "Description": "The DNS name of an existing Amazon Route 53 hosted zone",
+            "Type": "String"
+        },
+        "Target": {
+            "Default": "10.60.96.224",
+            "Description": "The DNS name or IP  address of the route target",
+            "Type": "String"
+        },
+        "Type": {
+            "AllowedValues": [
+                "A",
+                "CNAME"
+            ],
+            "Default": "A",
+            "Description": "Target type",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "record": {
+            "Properties": {
+                "Comment": "DNS name for my instance.",
+                "HostedZoneId": {
+                    "Ref": "HostedZoneId"
+                },
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "amq-1",
+                            ".prod.",
+                            {
+                                "Ref": "HostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "ResourceRecords": [
+                    {
+                        "Ref": "Target"
+                    }
+                ],
+                "TTL": "900",
+                "Type": {
+                    "Ref": "Type"
+                }
+            },
+            "Type": "AWS::Route53::RecordSet"
+        }
+    }
+}

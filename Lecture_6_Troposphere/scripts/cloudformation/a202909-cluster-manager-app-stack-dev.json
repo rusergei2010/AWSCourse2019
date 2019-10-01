@@ -1,0 +1,494 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "CloudFormation template to create cluster-manager-app stack.",
+    "Mappings": {
+        "RegionMap": {
+            "us-east-1": {
+                "shortname": "use1"
+            }
+        }
+    },
+    "Parameters": {
+        "CodedeployRole": {
+            "Default": "arn:aws:iam::003977924856:role/aws-codedeploy-role",
+            "Description": "Codedeploy role.",
+            "Type": "String"
+        },
+        "ExternalLoadBalancerSecurityGroup": {
+            "Default": "sg-0c540337c8ceb77ce",
+            "Description": "Security group for external load balancer.",
+            "Type": "String"
+        },
+        "ExternalSubnet1": {
+            "ConstraintDescription": "must be a valid SubnetID.",
+            "Default": "subnet-0892f27494b41dc13",
+            "Description": "AZ1 external subnet ID of cluster-manager-app",
+            "Type": "String"
+        },
+        "ExternalSubnet2": {
+            "ConstraintDescription": "must be a valid SubnetID.",
+            "Default": "subnet-06c63f04fe24f5210",
+            "Description": "AZ2 external subnet ID of cluster-manager-app",
+            "Type": "String"
+        },
+        "InternalLoadBalancerSecurityGroup": {
+            "Default": "sg-0a2663b7b61580686",
+            "Description": "Security group for internal load balancer.",
+            "Type": "String"
+        },
+        "JenkinsLoadBalancerSecurityGroup": {
+            "Default": "sg-0dc4b6dbe43a00750",
+            "Description": "Security group for jenkins load balancer.",
+            "Type": "String"
+        },
+        "JmxSecurityGroup": {
+            "Default": "sg-03eb46bbef043d198",
+            "Description": "Security group for admin jmx connection.",
+            "Type": "String"
+        },
+        "ServerAMIID": {
+            "ConstraintDescription": "must be a valid AMI ID.",
+            "Default": "ami-0e3507f402bb092f4",
+            "Description": "AMI ID of cluster-manager-app",
+            "Type": "String"
+        },
+        "ServerInstanceType": {
+            "ConstraintDescription": "must be a valid EC2 instance type.",
+            "Default": "t3.medium",
+            "Description": "EC2 ServerInstanceType for cluster-manager-app",
+            "Type": "String"
+        },
+        "Subnet1": {
+            "ConstraintDescription": "must be a valid SubnetID.",
+            "Default": "subnet-081d481f74064f3eb",
+            "Description": "AZ1 internal subnet ID of cluster-manager-app",
+            "Type": "String"
+        },
+        "Subnet2": {
+            "ConstraintDescription": "must be a valid SubnetID.",
+            "Default": "subnet-0c731098fed4c8df3",
+            "Description": "AZ2 internal subnet ID of cluster-manager-app",
+            "Type": "String"
+        },
+        "VpcId": {
+            "Default": "vpc-0a2c19059a55f753e",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "ClusterManagerAppDeploymentGroup": {
+            "Properties": {
+                "ApplicationName": "a202909-nr-elasticsearch-cluster-manager-app",
+                "DeploymentGroupName": "a202909-nr-elasticsearch-cluster-manager-app-DEVELOPMENT-dg",
+                "DeploymentStyle": {
+                    "DeploymentOption": "WITHOUT_TRAFFIC_CONTROL",
+                    "DeploymentType": "IN_PLACE"
+                },
+                "Ec2TagSet": {
+                    "Ec2TagSetList": [
+                        {
+                            "Ec2TagGroup": [
+                                {
+                                    "Key": "tr:service-name",
+                                    "Type": "KEY_AND_VALUE",
+                                    "Value": "nr-cluster-manager-app"
+                                }
+                            ]
+                        },
+                        {
+                            "Ec2TagGroup": [
+                                {
+                                    "Key": "tr:environment-type",
+                                    "Type": "KEY_AND_VALUE",
+                                    "Value": "DEVELOPMENT"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "ServiceRoleArn": {
+                    "Ref": "CodedeployRole"
+                }
+            },
+            "Type": "AWS::CodeDeploy::DeploymentGroup"
+        },
+        "ClusterManagerAppLoadBalancerInternal": {
+            "Properties": {
+                "AppCookieStickinessPolicy": [
+                    {
+                        "CookieName": "connect.sid",
+                        "PolicyName": "HTTPSCookieStickinessPolicy"
+                    }
+                ],
+                "HealthCheck": {
+                    "HealthyThreshold": "3",
+                    "Interval": "15",
+                    "Target": "HTTP:8080/health",
+                    "Timeout": "5",
+                    "UnhealthyThreshold": "2"
+                },
+                "Instances": [
+                    {
+                        "Ref": "ServerInstanceType1"
+                    },
+                    {
+                        "Ref": "ServerInstanceType2"
+                    }
+                ],
+                "Listeners": [
+                    {
+                        "InstancePort": "8080",
+                        "LoadBalancerPort": "80",
+                        "PolicyNames": [
+                            "HTTPSCookieStickinessPolicy"
+                        ],
+                        "Protocol": "HTTP"
+                    },
+                    {
+                        "InstancePort": "8080",
+                        "LoadBalancerPort": "443",
+                        "PolicyNames": [
+                            "HTTPSCookieStickinessPolicy"
+                        ],
+                        "Protocol": "HTTPS",
+                        "SSLCertificateId": "arn:aws:acm:us-east-1:003977924856:certificate/aac872ae-5ad8-44fd-aca7-a7cae930f509"
+                    }
+                ],
+                "LoadBalancerName": "a202909-clus-man-int-dev-lb",
+                "Scheme": "internal",
+                "SecurityGroups": [
+                    {
+                        "Ref": "ClusterManagerLoadBalancerSG"
+                    },
+                    {
+                        "Ref": "InternalLoadBalancerSecurityGroup"
+                    }
+                ],
+                "Subnets": [
+                    {
+                        "Ref": "Subnet1"
+                    },
+                    {
+                        "Ref": "Subnet2"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "a202909-clus-man-int-dev-lb"
+                    },
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "202909"
+                    },
+                    {
+                        "Key": "tr:environment-type",
+                        "Value": "DEVELOPMENT"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "652910105"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "Thomson.NewsTechnology@thomsonreuters.com"
+                    }
+                ]
+            },
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer"
+        },
+        "ClusterManagerAppSG": {
+            "Properties": {
+                "GroupDescription": "ClusterManager app inbound/outbound rules",
+                "GroupName": "a202909-cluster-manager-app-dev-use1-sg",
+                "SecurityGroupIngress": [
+                    {
+                        "Description": "Temporary solution that allows access to ClusterManager for all apps",
+                        "FromPort": "8080",
+                        "IpProtocol": "tcp",
+                        "SourceSecurityGroupId": {
+                            "Ref": "JmxSecurityGroup"
+                        },
+                        "ToPort": "8080"
+                    },
+                    {
+                        "Description": "LB access to ClusterManager HTTP API",
+                        "FromPort": "8080",
+                        "IpProtocol": "tcp",
+                        "SourceSecurityGroupId": {
+                            "Ref": "ClusterManagerLoadBalancerSG"
+                        },
+                        "ToPort": "8080"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "a202909-cluster-manager-app-dev-use1-sg"
+                    },
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "202909"
+                    },
+                    {
+                        "Key": "tr:environment-type",
+                        "Value": "DEVELOPMENT"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "652910105"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "Thomson.NewsTechnology@thomsonreuters.com"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VpcId"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "ClusterManagerLoadBalancerSG": {
+            "Properties": {
+                "GroupDescription": "ClusterManager LB API access from JXM group",
+                "GroupName": "a202909-clusman-lb-dev-use1-sg",
+                "SecurityGroupIngress": [
+                    {
+                        "Description": "Temporary solution that allows access to ES for all apps",
+                        "FromPort": "80",
+                        "IpProtocol": "tcp",
+                        "SourceSecurityGroupId": {
+                            "Ref": "JmxSecurityGroup"
+                        },
+                        "ToPort": "80"
+                    },
+                    {
+                        "Description": "Temporary solution that allows access to ES for all apps",
+                        "FromPort": "443",
+                        "IpProtocol": "tcp",
+                        "SourceSecurityGroupId": {
+                            "Ref": "JmxSecurityGroup"
+                        },
+                        "ToPort": "443"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "a202909-clusman-lb-dev-use1-sg"
+                    },
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "202909"
+                    },
+                    {
+                        "Key": "tr:environment-type",
+                        "Value": "DEVELOPMENT"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "652910105"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "Thomson.NewsTechnology@thomsonreuters.com"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "VpcId"
+                }
+            },
+            "Type": "AWS::EC2::SecurityGroup"
+        },
+        "ServerInstanceType1": {
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/xvda",
+                        "Ebs": {
+                            "VolumeSize": "50"
+                        }
+                    }
+                ],
+                "ImageId": {
+                    "Ref": "ServerAMIID"
+                },
+                "InstanceType": {
+                    "Ref": "ServerInstanceType"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "JmxSecurityGroup"
+                    },
+                    {
+                        "Ref": "ClusterManagerAppSG"
+                    }
+                ],
+                "SubnetId": {
+                    "Ref": "Subnet1"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    "a202909-cluster-manager-app-dev",
+                                    {
+                                        "Fn::FindInMap": [
+                                            "RegionMap",
+                                            {
+                                                "Ref": "AWS::Region"
+                                            },
+                                            "shortname"
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "202909"
+                    },
+                    {
+                        "Key": "tr:environment-type",
+                        "Value": "DEVELOPMENT"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "652910105"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "Thomson.NewsTechnology@thomsonreuters.com"
+                    },
+                    {
+                        "Key": "tr:service-name",
+                        "Value": "nr-cluster-manager-app"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "\n",
+                            [
+                                "#!/bin/bash",
+                                "sudo cat > /etc/datadog-agent/datadog.yaml <<EOF",
+                                "api_key: f9ba4c5282d879a16bb08686b3d14b75",
+                                "hostname: $(curl http://169.254.169.254/latest/meta-data/instance-id)",
+                                "logs_enabled: true",
+                                "apm_config:",
+                                "  enabled: true",
+                                "  env: 'development'",
+                                "EOF",
+                                "sudo initctl start datadog-agent",
+                                "sudo useradd -s '/bin/bash' newsroom",
+                                "sudo setfacl -R -m 'g:newsroom:rX' /usr/local/",
+                                "sudo yum -y install htop"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "Type": "AWS::EC2::Instance"
+        },
+        "ServerInstanceType2": {
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/xvda",
+                        "Ebs": {
+                            "VolumeSize": "50"
+                        }
+                    }
+                ],
+                "ImageId": {
+                    "Ref": "ServerAMIID"
+                },
+                "InstanceType": {
+                    "Ref": "ServerInstanceType"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "JmxSecurityGroup"
+                    },
+                    {
+                        "Ref": "ClusterManagerAppSG"
+                    }
+                ],
+                "SubnetId": {
+                    "Ref": "Subnet2"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    "a202909-cluster-manager-app-dev",
+                                    {
+                                        "Fn::FindInMap": [
+                                            "RegionMap",
+                                            {
+                                                "Ref": "AWS::Region"
+                                            },
+                                            "shortname"
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Key": "tr:application-asset-insight-id",
+                        "Value": "202909"
+                    },
+                    {
+                        "Key": "tr:environment-type",
+                        "Value": "DEVELOPMENT"
+                    },
+                    {
+                        "Key": "tr:financial-identifier",
+                        "Value": "652910105"
+                    },
+                    {
+                        "Key": "tr:resource-owner",
+                        "Value": "Thomson.NewsTechnology@thomsonreuters.com"
+                    },
+                    {
+                        "Key": "tr:service-name",
+                        "Value": "nr-cluster-manager-app"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "\n",
+                            [
+                                "#!/bin/bash",
+                                "sudo cat > /etc/datadog-agent/datadog.yaml <<EOF",
+                                "api_key: f9ba4c5282d879a16bb08686b3d14b75",
+                                "hostname: $(curl http://169.254.169.254/latest/meta-data/instance-id)",
+                                "logs_enabled: true",
+                                "apm_config:",
+                                "  enabled: true",
+                                "  env: 'development'",
+                                "EOF",
+                                "sudo initctl start datadog-agent",
+                                "sudo useradd -s '/bin/bash' newsroom",
+                                "sudo setfacl -R -m 'g:newsroom:rX' /usr/local/",
+                                "sudo yum -y install htop"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "Type": "AWS::EC2::Instance"
+        }
+    }
+}
