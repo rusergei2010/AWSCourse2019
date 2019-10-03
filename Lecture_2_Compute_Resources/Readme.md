@@ -32,13 +32,12 @@
  - Show the architecture pic woth secured perimeter 
  - Show in Console - In/Out bound ports
  - Only cross-group communication is allowed per the same SG
-4.  
+4.
  
  
  
- 
- 
-Practise:
+## Practice:
+
 1. Go to the "Users" and create a new one with Administrator Role (S3:))
 
 2. Two options to get SSH keys:
@@ -66,6 +65,7 @@ $ >aws ec2 describe-instances
    Create snapshot (can be re-sized on a fly)
    CLI: >aws ec2 create-snapshot --volume-id vol-0081ebd18868cf2a0 --description "EBS"
 
+10. Support communication
 
 ## Links:
 1. https://aws.amazon.com/architecture/?awsf.quickstart-architecture-page-filter=highlight%23new
