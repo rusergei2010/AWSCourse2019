@@ -1,4 +1,0 @@
-1. Open key pairs, create a new key pair
-2. >aws ec2 describe-key-pairs
-   >aws configure --profile=default
-3. 
