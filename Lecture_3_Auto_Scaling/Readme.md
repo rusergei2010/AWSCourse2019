@@ -32,8 +32,7 @@ $ aws ec2 run-instances --image-id ami-00c03f7f7f2ec15c3 --key-name lecture_3_ec
 
 ## Get know auto-scaling Groups
 4. Create Auto-Scaling Group - horizontal (cores, size - Vertical)
-5. Scale - 10 small instance better than 5 medium (scaling starts from 1:))
-6. Draw ELB in Lucid with several AZ
+5. Scale - 10 small instance better than 5 medium (scaling starts from 1:)
 7. ELB (classic) evolve to Application LB and Network LB
 8. ELB - DNS name -> route to EC2 instances
 9. Balancing sends traffic within time slot and swtches to another node
@@ -50,28 +49,102 @@ $ aws ec2 run-instances --image-id ami-00c03f7f7f2ec15c3 --key-name lecture_3_ec
 18. Scaling Policy is triggered on Alarm that is produced by Metric in Cloud Watch
 19. New EC2 is created in Scaling Policy
 
-Praceitce:
+Practice:
 1. Cerate ELB for 2 AZ (via CLI)
+
+```bash
+aws elb create-load-balancer --load-balancer-name crash-course-elb --availability-zones us-east-2a us-east-2b --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80
+```
+
 2. Get and use generated DNS name
-3. Run instances with bootstap user data script
+3. Run instances with bootstap user data script (create manually with Console and stop/insert user data/start)
+
+```bash
+aws ec2 run-instances \
+--image-id ami-00c03f7f7f2ec15c3 \
+--key-name lecture_3_ec2 \
+--instance-type t2.micro \
+--user-data file://./instance_bootstrap.sh
+```
+
+
 4. Register instances on ELB (via CLI)
+* Register instances
+
+```bash
+aws elb register-instances-with-load-balancer --load-balancer-name crash-course-elb --instances i-06c7641e7c7511718
+```
 5. Open ELB in Console and see registered instances (OutOfService)
+
+* Register instances
+
+```bash
+aws elb register-instances-with-load-balancer --load-balancer-name crash-course-elb --instances i-06c7641e7c7511718
+```
+
 6. elb configure-health-check (via CLI)
+* Configure health checks
+
+```bash
+aws elb configure-health-check \
+--load-balancer-name crash-course-elb \
+--health-check Target=HTTP:80/index.html,Interval=10,Timeout=5,UnhealthyThreshold=2,HealthyThreshold=2
+```
+
 7. What is threashold
-8. aws elb show-availability-zones-for-load-balancer --load-balancer-name my-loadbalancer
+8. !!! Ensure the HTTP server is up and running. Otherwise check SC ('default') and enable Inbound 80 port for HTTP
 9. After the instance is configured for ELB then it appears and intercepts traffic from ELB
-10. Put down one EC2
-11. 1. Restart: aws autoscaling create-launch-configuration --launch-configuration-name .. userdata - "CERATE Launch configuration"
+
+Play arounf EC2: start and stop. HTTP ELB and see instances handling it.
+
+
+11. 
+
+## Auto Scaling Group
+
+* Create Launch Configuration
+  a. Using custom AMI
+  b. Using user data script
+
+```bash
+aws autoscaling create-launch-configuration \
+--launch-configuration-name crash-course-lc \
+--image-id ami-00c03f7f7f2ec15c3 \
+--key-name lecture_3_ec2 \
+--instance-type t2.micro \
+--user-data file://./instance_bootstrap.sh
+```
+
+No EC2 instances will be created at this stage
+
 12. 2. Create Autoscaling group (point out the autoscaling configuration for it)
 --- Now use the Autoscaling Group (second approach). 
   EC2 instance now do not need tp be registered manually on ELB
   Autoscaling will allow to register EC2 on ELB and start automatically.
-13. 3. Use min and max instances at registration time
-14. Create Alarms Min and Max (Requests 100 req per minute - SUM type). See monitoring.
-15. See states of alarms.
-16. Use Apache Bench. Use DNS of ELB.
-20. Make traffic + User Data to display on front page
+  
+* Create auto scaling groups
 
+```bash
+aws autoscaling create-auto-scaling-group \
+--auto-scaling-group-name crash-course-ag \
+--launch-configuration-name crash-course-lc \
+--min-size 1 --max-size 3 \
+--load-balancer-names crash-course-elb \
+--availability-zones us-east-2a us-east-2b us-east-2c
+```
+  
+One instance will be started and registered on ELB
+  
+13. 3. Use min and max instances at registration time
+14. Create Alarms Min and Max (Requests <50, >100 req per minute - SUM type). See monitoring.
+ - Create 2 Alarms
+15. See states of alarms.
+16  Create 1 policy Scale Up in Auto Scaling Groups -> Scaling Group tab
+    Scale Down - skip
+	
+17. Use simple scaling policy   
+18. Use Apache Bench. Use DNS of ELB.
+20. Make traffic with Postman + User Data to display on front page
 
   
 ## Links:
