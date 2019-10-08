@@ -68,9 +68,11 @@ $ >aws ec2 describe-instances
 10. Support communication
 
 ## Links:
+0. https://itnext.io/high-available-vpc-architecture-in-cloudformation-2f4d8a86f4d2
 1. https://aws.amazon.com/architecture/?awsf.quickstart-architecture-page-filter=highlight%23new
 2. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html
 3. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instances-and-amis.html
 4. https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
 5. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/modify-volume-requirements.html
 6. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html
+7. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html
