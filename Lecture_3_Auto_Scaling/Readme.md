@@ -17,12 +17,12 @@ From the previous lecture (remaining)
 0. EBS backed AMI and S3 template backed AMI. EBS backed is preferrable.
 1. Create two instances and add them into the same Secutiry Group first (configure at start up).
 2. SSH to one instance and then SSH to another
-3. Add IAM user and Group with Admin Roles, add Key pai and set up locally for epam_user
+3. Add IAM user and Group with Admin Roles, add Key pair and set up locally for epam_user
 4. Create a new user profile, reuse: $ aws configure --profile epam_user
 5. export AWS_DEFAULT_PROFILE='epam_user'
 6. aws ec2 --profile epam_user describe-regions
 7. Start another EC2 instance with CLI:
-$ aws ec2 run-instances --image-id ami-00c03f7f7f2ec15c3 --key-name lecture_3_ec2 --instance-type t2.micro
+$ aws ec2 run-instances --image-id ami-00c03f7f7f2ec15c3 --key-name lecture_3_ssh --instance-type t2.micro
 8. Check Dashboard
 10. ssh another instance. Play with SG.
 
@@ -53,7 +53,7 @@ Practice:
 1. Cerate ELB for 2 AZ (via CLI)
 
 ```bash
-aws elb create-load-balancer --load-balancer-name crash-course-elb --availability-zones us-east-2a us-east-2b --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80
+aws elb create-load-balancer --load-balancer-name crash-course-elb --availability-zones us-east-2a us-east-2b us-east-2c --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80
 ```
 
 2. Get and use generated DNS name
@@ -62,7 +62,7 @@ aws elb create-load-balancer --load-balancer-name crash-course-elb --availabilit
 ```bash
 aws ec2 run-instances \
 --image-id ami-00c03f7f7f2ec15c3 \
---key-name lecture_3_ec2 \
+--key-name lecture_3_ssh \
 --instance-type t2.micro \
 --user-data file://./instance_bootstrap.sh
 ```
@@ -72,7 +72,7 @@ aws ec2 run-instances \
 * Register instances
 
 ```bash
-aws elb register-instances-with-load-balancer --load-balancer-name crash-course-elb --instances i-06c7641e7c7511718
+aws elb register-instances-with-load-balancer --load-balancer-name crash-course-elb --instances i-0f7ba4e7e60736d0e i-0bb8185efe5ab1369
 ```
 5. Open ELB in Console and see registered instances (OutOfService)
 
@@ -110,7 +110,7 @@ Play arounf EC2: start and stop. HTTP ELB and see instances handling it.
 aws autoscaling create-launch-configuration \
 --launch-configuration-name crash-course-lc \
 --image-id ami-00c03f7f7f2ec15c3 \
---key-name lecture_3_ec2 \
+--key-name lecture_3_ssh \
 --instance-type t2.micro \
 --user-data file://./instance_bootstrap.sh
 ```
@@ -142,9 +142,9 @@ One instance will be started and registered on ELB
 16  Create 1 policy Scale Up in Auto Scaling Groups -> Scaling Group tab
     Scale Down - skip
 	
-17. Use simple scaling policy   
-18. Use Apache Bench. Use DNS of ELB.
+17. Use simple scaling policy  (pick the link)
 20. Make traffic with Postman + User Data to display on front page
+21. Delete AutoScaling configuration and other resources (3)
 
   
 ## Links:

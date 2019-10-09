@@ -24,7 +24,7 @@
     "KeyName" : {
       "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instances",
       "Type" : "String",
-      "Default" : "devops-ed-cfn"
+      "Default" : "lecture_3_ssh"
     },
     "SSHLocation" : {
       "Description" : "The IP address range that can be used to SSH to the EC2 instances",
@@ -56,7 +56,7 @@
 
     "AWSRegionArch2AMI" : {
       "us-east-2"      : { "32" : "ami-aba768c2", "64" : "ami-00c03f7f7f2ec15c3" },
-	  "us-east-1"      : { "32" : "ami-aba768c2", "64" : "ami-00c03f7f7f2ec15c4" }     
+	  "us-east-1"      : { "32" : "ami-aba768c2", "64" : "ami-00c03f7f7f2ec15c3" }     
     }
   },
 
@@ -94,8 +94,11 @@
           "#!/bin/bash -x\n",
           "yum update -y\n",
           "yum install -y httpd\n",
+		  "chkconfig httpd on",
+		  "sudo -s\n",		  		  
+		  "echo '<html></html>' >> /var/www/html/index.html \n",
           "sed -i 's/^Listen.*/Listen ", {"Ref" : "WebServerPort"},"/' /etc/httpd/conf/httpd.conf\n",
-          "/etc/init.d/httpd restart\n"
+          "service httpd start\n"		  
         ]]}}
       }
     },
