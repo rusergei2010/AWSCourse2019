@@ -49,6 +49,7 @@ lecture_4_ssh - check if it exists or fix
   > httpd -k start
   
 14. Add another Instance 3 and update.
+15. Check ELB DNS - open in browser
 
 ## Links:
 0. https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html
