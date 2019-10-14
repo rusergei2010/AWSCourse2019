@@ -24,9 +24,29 @@
   * docker pull 
   * docker push
 
-
+## Practice
+1. Create sample ECS application with httpd server (takes 3 minutes). Discuss pther things.
+   https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2
+   Configure ALB and open DNS name. Open Target Group. Delete everything.
+2. 
+3. 
+4.
+5.
+6.
+7.
+8.
 
 Links: 
+
+
 1. https://dzone.com/articles/docker-containers-and-kubernetes-an-architectural
 2. https://stackify.com/guide-docker-java/
 3. https://vmarena.com/learning-docker-part-1/
+4. https://www.docker.com/products/docker-enterprise
+5. https://docs.docker.com/compose/
+6. https://aws.amazon.com/getting-started/tutorials/deploy-docker-containers/
+7. https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html
+8. https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+Docker containers: https://hub.docker.com/
+Docker images: https://hub.docker.com/search/?q=&type=image
