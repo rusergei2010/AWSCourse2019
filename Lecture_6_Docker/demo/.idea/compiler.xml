@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="memory-leaks" />
+        <module name="core-java-9" />
+        <module name="logback-example" />
+        <module name="log4j2-example" />
+        <module name="tomcat-app" />
+        <module name="java-remote-debugging" />
+        <module name="spring-security" />
+        <module name="core-java" />
+        <module name="rest-client" />
+        <module name="deep-jsf" />
+        <module name="junit5-example" />
+        <module name="spring-boot-app" />
+        <module name="spring-mvc" />
+        <module name="spring-rest-service" />
+        <module name="rest-server" />
+        <module name="thread-pools" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-mvc" options="-parameters" />
+      <module name="spring-security" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3f159537-d069-46aa-aaf4-aee9dad11e69" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Course_Agenda.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Course_Agenda.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/Instructions.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/Readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/Troposhere.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/scripts/cloudformation/a202909-amq-1-int-route-prod.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/scripts/cloudformation/a202909-cluster-manager-app-stack-dev.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/scripts/newsroom-cloud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/scripts/stack_finder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_6_Troposphere/scripts/vpc_stack.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/Docker_Container.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/context.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/java/com/example/demo2/Demo2Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/java/com/example/demo2/GreetingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/java/com/example/demo2/model/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/java/com/example/demo2/model/Task.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/src/test/java/com/example/demo2/Demo2ApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/demo/tomcat-users.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lecture_8_Docker/readme.md" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/log4j2-example/target/" />
+    <ignored path="$PROJECT_DIR$/spring-boot-app/target/" />
+    <ignored path="$PROJECT_DIR$/core-java-9/target/" />
+    <ignored path="$PROJECT_DIR$/webservices/rest-server/target/" />
+    <ignored path="$PROJECT_DIR$/spring-security/target/" />
+    <ignored path="$PROJECT_DIR$/thread-pools/target/" />
+    <ignored path="$PROJECT_DIR$/logback-example/target/" />
+    <ignored path="$PROJECT_DIR$/deep-jsf/target/" />
+    <ignored path="$PROJECT_DIR$/webservices/rest-client/target/" />
+    <ignored path="$PROJECT_DIR$/core-java/target/" />
+    <ignored path="$PROJECT_DIR$/memory-leaks/target/" />
+    <ignored path="$PROJECT_DIR$/remote-debugging/target/" />
+    <ignored path="$PROJECT_DIR$/tomcat-app/target/" />
+    <ignored path="$PROJECT_DIR$/webservices/spring-rest-service/target/" />
+    <ignored path="$PROJECT_DIR$/junit5-example/target/" />
+    <ignored path="$PROJECT_DIR$/spring-mvc/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="createModulesForAggregators" value="false" />
+        <option name="importAutomatically" value="true" />
+        <option name="keepSourceFolders" value="false" />
+        <option name="useMavenOutput" value="false" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1550" />
+    <option name="height" value="945" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.JavaRemoteDebuggingApplication">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-rest-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.stackify.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaRemoteDebuggingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="java-remote-debugging" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.stackify.debug.JavaRemoteDebuggingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f159537-d069-46aa-aaf4-aee9dad11e69" name="Default Changelist" comment="" />
+      <created>1571124889056</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571124889056</updated>
+      <workItem from="1571124891546" duration="391000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="391000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <layout>
+      <window_info id="Web" side_tool="true" />
+      <window_info id="Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info anchor="bottom" id="Spring" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="CDI" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Bean Validation" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="SciView" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
