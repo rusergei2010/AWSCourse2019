@@ -1,29 +1,5 @@
 # Docker
 
-* Docker build from war
-  * generate in https://start.spring.io/ MVN app (add Spring Boot Starter pack)
-  * Build locally
-  * SpringBoot starter includes embedded tomcat
-* Add Dockerfile
-* Commands
-  ```
-  docker images
-  docker image rm -f <hash>
-  docker run --rm -p 8888:8080 app:latest
-  docker ps
-  docker stop <hash container>
-    
-  ```
-  
-## Deploy to S3 
-* Docker Registry
-
-  * docker build -f Dockerfile -t app:latest .
-  * docker tag app:latest sergei/app:latest
-* Docker Registry:
-  * docker pull 
-  * docker push
-
 ## Practice
 
 0. Install Docker and run
@@ -58,7 +34,7 @@
 
 Amazon ECS task definitions use Docker images to launch containers on the container instances in your clusters. In this section, you create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry (such as Amazon ECR or Docker Hub) so you can use it in an ECS task definition.
 
-Create a new Dockerfile locally:
+Create a new Dockerfile locally with content:
 '''
 FROM ubuntu:18.04
 
@@ -83,19 +59,19 @@ CMD /root/run_apache.sh
 
 The EXPOSE instruction exposes port 80 on the container, and the CMD instruction starts the web server.
 8. Build
->docker build -t hello-world .
+>docker build -t ecs-aws-course .
 9. Check that it is created with web server installed:
 >docker images 
->docker images --filter reference=hello-world
+>docker images --filter reference=ecs-aws-course
 
-hello-world                              latest              721cbb37cb43        5 minutes ago       188MB
+ecs-aws-course                              latest              721cbb37cb43        5 minutes ago       188MB
 10. Run on the port: 80
->docker run -t -i -p 80:80 hello-world  (or without -t on Win)
+>docker run -t -i -p 80:80 ecs-aws-course  (or without -t on Win)
 11. Check in browser: localhost:80
     Check locally: >docker ps
 12. >docker stop <container id>
 13. Push your image to Amazon Elastic Container Registry (ECR)
-14. Create an Amazon ECR repository to store your hello-world image. Note the repositoryUri in the output:
+14. Create an Amazon ECR repository to store your ecs-aws-course image. Note the repositoryUri in the output:
 >aws ecr create-repository --repository-name hello-repository --region us-east-2
 {
     "repository": {
@@ -106,8 +82,8 @@ hello-world                              latest              721cbb37cb43       
         "createdAt": 1571038720.0
     }
 }
-15. Tag the hello-world image with the repositoryUri value from the previous step
-  >docker tag hello-world <aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository>
+15. Tag the ecs-aws-course image with the repositoryUri value from the previous step
+  >docker tag ecs-aws-course <aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository>
 16. >docker images (check the ref appears)
 17. Get ECR login:
   >aws ecr get-login --no-include-email

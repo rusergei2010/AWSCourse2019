@@ -12,10 +12,10 @@
 
 ### 5. [VPC](/Lecture_5/Readme.md)
 
-### 6. [Troposphere, Secutiry, Lambda](/Lecture_6/Readme.md)
+### 6. [Docker](/Lecture_6/Readme.md)
 
-### 7. [Docker 1, Monitoring](/Lecture_7/Readme.md)
+### 7. [Docker 2, Monitoring](/Lecture_7/Readme.md)
 
-### 8. [Docker 2](/Lecture_8/Readme.md)
+### 8. [Troposphere](/Lecture_8/Readme.md)
 
 
