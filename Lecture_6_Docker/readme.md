@@ -152,7 +152,58 @@ Add plugin to pom
 10. $ docker exec -it image:latest sh (attach loag to container for logging)
 11. Contibue and push image to the EKR in the step: 17. Get ECR login
 
+################################################
+######!!! Leverage Spring-Boor-App in demo2 and put into docker image
+################################################
 
+1. >mvn install
+Open Browser in localhost:8080/hello
+2. >docker build --build-arg=target/*.jar -t myorg/myapp .
+3. >docker run -d  -p 8080:8080 myorg/myapp:latest
+4. Create ECR:
+   aws ecr create-repository --repository-name hello-repository --region us-east-2
+5.
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:us-east-2:066207590315:repository/hello-repository",
+        "registryId": "066207590315",
+        "repositoryName": "hello-repository",
+        "repositoryUri": "066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository",
+        "createdAt": 1571038720.0
+    }
+}
+6.  aws ecr get-login --no-include-email
+    Copy the login token for docker login
+
+7. Tag the ecs-aws-course image with the 'repositoryUri' value from the previous step
+  >docker tag myorg/myapp 066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository
+  
+8. Push the image to Amazon ECR with the repositoryUri value from the earlier step.
+   >docker push 066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository
+  
+Install docker on EC2   (the as in the beginning):
+  sudo yum update -y
+Install the most recent Docker Community Edition package.
+   > sudo amazon-linux-extras install docker
+Add the ec2-user to the docker group so you can execute Docker commands without using sudo.
+   >sudo usermod -a -G docker ec2-user
+   Check:
+   >docker info
+   Reboot the instance if come across the message:!!!
+   "Cannot connect to the Docker daemon. Is the docker daemon running on this host?"
+   
+   Try to start manually then:
+   >sudo service docker start
+
+9. Open EC2 via SSH and login Docker:
+  $ docker login -u AWS -p eyJwYXlsb2FkI..
+10. Pull the image from repository:
+  > docker pull 066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository
+11. Run images in Docker: >docker run -t -i -p 8080:8080 066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository
+11. Run images with mapping might be: >docker run -t -i -p 80:8080 066207590315.dkr.ecr.us-east-2.amazonaws.com/hello-repository
+12. Check in browser using DNS name: <DNS>:80 or 8080 or 8080/hello
+If is not opened: Check Security Group is opened for Inboud: 80 or 8080 HTTP port or 8080/hello (see Controller.java). Add this rule if it is missing.
+   
+   
 Links: 
 
 1. https://dzone.com/articles/docker-containers-and-kubernetes-an-architectural
