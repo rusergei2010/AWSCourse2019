@@ -14,7 +14,7 @@
 
 ### 6. [Docker](/Lecture_6/Readme.md)
 
-### 7. [Docker 2, Monitoring](/Lecture_7/Readme.md)
+### 7. [Docker 2, Lambda](/Lecture_7/Readme.md)
 
 ### 8. [Troposphere](/Lecture_8/Readme.md)
 

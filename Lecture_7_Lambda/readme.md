@@ -2,14 +2,14 @@
 
 1. Cost Explorer
 2. Lambda
-
+3. Lucid
 
 ## Practice
 
 Test Scenario 1.
 1. Create lambda function with Console
 2. Select "Amazon CloudWatch Logs" and see allowed actions
-   When adding new actions this permission tabel will be updated
+   When adding new actions this permission table will be updated
 3. Press 'Test' and enter event name. Exectute - click twice. See output and duration.
 4. add 'event['key1']'
 5. Open Dashboard. See monitors.
@@ -44,7 +44,7 @@ Test Scenario 5.
 1. Go to "Create Lambda" from "Browse serverless app repository"
 2. Add S3 bucket tracker (for new Objects). Play with it.
 3. Open "Amazon API Gateway"
-4. Add postman POST request /Peod/send like
+4. Add postman POST request /Prod/send like
    https://b3nb74541k.execute-api.us-east-2.amazonaws.com/Prod
 5. Open Monitoring and "View Logs in Cloud Watch"
 6. Applications -> Monitoring and -> Monitoring Amazon API Gateway
@@ -154,7 +154,7 @@ exports.handler = async (params)  => {
 3. Add Permission in case of error. SES should appear in the resources of Lambda.
 4. Go to SES mail verification service.
 $aws lambda add-permission --function-name MAIL_Service --action lambda:InvokeFunction --statement-id sns --principal sns.amazonaws.com --output text
-4. If inokation and Mail Service is not available then check SergeySESRolesForLambda role in IAM and add SES permissions
+4. If invokation and Mail Service is not available then check SergeySESRolesForLambda role in IAM and add SES permissions
 5. Check Whatch Logs for latest logging: Logs -> Mail_SERVICE log
 
 SES can be deployed on one region only: us-east-2!
@@ -169,6 +169,5 @@ Links:
 1. https://docs.aws.amazon.com/lambda/latest/dg/getting-started-create-function.html
 2. https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html
 3. https://aws.amazon.com/blogs/architecture/understanding-the-different-ways-to-invoke-lambda-functions/
-4. https://developer.amazon.com/docs/alexa-skills-kit-sdk-for-java/develop-your-first-skill.html
-5. https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html
-6. 
+4. https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html
+5. 
